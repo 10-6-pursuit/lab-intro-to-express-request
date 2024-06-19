@@ -7,10 +7,16 @@ app.get("/", (req, res) => {
     res.send(`Welcome to 99 Little Bugs In the Code & Poke-Express`);
   });
 
+// Route to show all pokemon
 app.get("/pokemon", (req, res) => {
     res.send(pokemon)
 })
 
+// Route to return 1 pokemon at that array position
+app.get("/pokemon/:indexOfArray", (req, res) => {
+    const { indexOfArray } = req.params
+    res.send(pokemon[Number(indexOfArray)])
+})
 
 app.get("/bugs", (req, res) => {
     res.send(`99 little bugs in the code <a href="/bugs/101/">pull one down, patch it around</a>`)
