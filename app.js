@@ -1,7 +1,8 @@
 const express = require("express");
-
+const pokemon = require("./models/pokemon.json");
 const app = express();
 
+console.log(pokemon[0]);
 // ROUTES
 app.get("/", (req, res) => {
     res.send(`Welcome to 99 Little Bugs In the Code & Poke-Express`);
@@ -20,6 +21,8 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
         res.send(`${Number(numberOfBugs)} little bugs in the code <a href="/bugs/${Number(numberOfBugs) + 2}/">pull one down, patch it around</a>`)
     }
 })
+
+
 // // To get "Congratulations on starting a new project called jumping-joyous-jellybean!"
 // app.get("/:verb/:adjective/:noun", (req, res) => {
 //     const { verb, adjective, noun } = req.params
