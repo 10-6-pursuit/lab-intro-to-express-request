@@ -13,16 +13,10 @@ app.get("/pokemon", (req, res) => {
 })
 
 // Route to return 1 pokemon matching query parameter
-app.get("/pokemon/:input", (req, res) => {
+app.get("/pokemon/search", (req, res) => {
     const { name } = req.query;
-    if (req.params.input === "search") {
         const targetPokemon = pokemon.find((eachPokemon) => eachPokemon.name === name[0].toUpperCase() + name.slice(1))
         res.send(targetPokemon)
-    } else if (!pokemon[Number(req.params.input)]) {
-        res.send(`sorry, no pokemon found at /pokemon[${indexOfArray}]`)
-    } else {
-        res.send(pokemon[Number(req.params.input)])
-    }
 })
 
 // Route to return 1 pokemon at that array position
