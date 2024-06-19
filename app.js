@@ -15,7 +15,7 @@ app.get("/pokemon", (req, res) => {
 // Route to show all pokemon as link to the array position of pokemon
 app.get("/pokemon-pretty", (req, res) => {
     const pokemonNameArray = pokemon.map((eachPokemon) => Object.entries(eachPokemon).slice(0,1)[0][1])
-    const pokemonList = pokemonNameArray.map((eachPokemon, index) => `<li><a href="/pokemon/${Number(index)}/">${eachPokemon}</a></li>`).join("")
+    const pokemonList = pokemonNameArray.map((eachPokemonName, index) => `<li><a href="/pokemon/${Number(index)}/">${eachPokemonName}</a></li>`).join("")
     res.send(pokemonList)
 })
 
@@ -32,7 +32,9 @@ app.get("/pokemon/:indexOfArray", (req, res) => {
     if (!pokemon[Number(indexOfArray)]) {
         res.send(`sorry, no pokemon found at /pokemon[${indexOfArray}]`)
     } else {
-        res.send(pokemon[Number(indexOfArray)])
+        const selectedPokemon = pokemon[Number(indexOfArray)]
+
+        res.send(`<div><h1>${selectedPokemon.name}</h1><br><img src=${selectedPokemon.img} alt=${selectedPokemon.name}><br><a href="/pokemon-pretty/">Go Back to Pokemon List</a></div>`)
     }
 })
 
