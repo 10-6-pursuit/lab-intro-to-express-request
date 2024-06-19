@@ -2,11 +2,14 @@ const express = require("express");
 const pokemon = require("./models/pokemon.json");
 const app = express();
 
-console.log(pokemon[0]);
 // ROUTES
 app.get("/", (req, res) => {
     res.send(`Welcome to 99 Little Bugs In the Code & Poke-Express`);
   });
+
+app.get("/pokemon", (req, res) => {
+    res.send(pokemon)
+})
 
 
 app.get("/bugs", (req, res) => {
