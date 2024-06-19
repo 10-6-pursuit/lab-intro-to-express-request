@@ -15,7 +15,11 @@ app.get("/pokemon", (req, res) => {
 // Route to return 1 pokemon at that array position
 app.get("/pokemon/:indexOfArray", (req, res) => {
     const { indexOfArray } = req.params
-    res.send(pokemon[Number(indexOfArray)])
+    if (!pokemon[Number(indexOfArray)]) {
+        res.send(`sorry, no pokemon found at /pokemon[${indexOfArray}]`)
+    } else {
+        res.send(pokemon[Number(indexOfArray)])
+    }
 })
 
 app.get("/bugs", (req, res) => {
