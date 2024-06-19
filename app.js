@@ -12,6 +12,13 @@ app.get("/pokemon", (req, res) => {
     res.send(pokemon)
 })
 
+// Route to show all pokemon as link to the array position of pokemon
+app.get("/pokemon-pretty", (req, res) => {
+    const pokemonNameArray = pokemon.map((eachPokemon) => Object.entries(eachPokemon).slice(0,1)[0][1])
+    const pokemonList = pokemonNameArray.map((eachPokemon, index) => `<li><a href="/pokemon/${Number(index)}/">${eachPokemon}</a></li>`).join("")
+    res.send(pokemonList)
+})
+
 // Route to return 1 pokemon matching query parameter
 app.get("/pokemon/search", (req, res) => {
     const { name } = req.query;
