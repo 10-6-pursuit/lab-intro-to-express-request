@@ -4,7 +4,7 @@ const app = express();
 
 // ROUTES
 app.get("/", (req, res) => {
-    res.send(`Welcome to 99 Little Bugs In the Code & Poke-Express`);
+    res.send(`Welcome 99 Pokemon`);
   });
 
 // Route to show all pokemon
@@ -22,19 +22,24 @@ app.get("/pokemon-pretty", (req, res) => {
 // Route to return 1 pokemon matching query parameter
 app.get("/pokemon/search", (req, res) => {
     const { name } = req.query;
-        const targetPokemon = pokemon.find((eachPokemon) => eachPokemon.name === name[0].toUpperCase() + name.slice(1))
-        res.send(targetPokemon)
+    const targetPokemon = pokemon.find((eachPokemon) => eachPokemon.name.toUpperCase() === name.toUpperCase())
+    if (!targetPokemon) {
+    const emptyArray = []
+        res.send(emptyArray)
+    } else {
+        res.send([targetPokemon])
+    }
 })
 
 // Route to return 1 pokemon at that array position
 app.get("/pokemon/:indexOfArray", (req, res) => {
     const { indexOfArray } = req.params
     if (!pokemon[Number(indexOfArray)]) {
-        res.send(`sorry, no pokemon found at /pokemon[${indexOfArray}]`)
+        res.send(`Sorry, no pokemon found at ${indexOfArray}`)
     } else {
         const selectedPokemon = pokemon[Number(indexOfArray)]
-
-        res.send(`<div><h1>${selectedPokemon.name}</h1><br><img src=${selectedPokemon.img} alt=${selectedPokemon.name}><br><a href="/pokemon-pretty/">Go Back to Pokemon List</a></div>`)
+        res.send(selectedPokemon)
+        // res.send(`<div><h1>${selectedPokemon.name}</h1><br><img src=${selectedPokemon.img} alt=${selectedPokemon.name}><br><a href="/pokemon-pretty/">Go Back to Pokemon List</a></div>`)
     }
 })
 
@@ -45,19 +50,20 @@ app.get("/bugs", (req, res) => {
 
 app.get("/bugs/:numberOfBugs", (req, res) => {
     const { numberOfBugs } = req.params
-    if ( Number(numberOfBugs) > 200 ) {
-        res.send(`${Number(numberOfBugs)} little bugs in the code <a href="/bugs">too many bugs, have to star over!</a>`)
+    if ( Number(numberOfBugs) > 199 ) {
+        // res.send(`${Number(numberOfBugs)} little bugs in the code <a href="/bugs">too many bugs, have to star over!</a>`)
+        res.send("Too many bugs!! Start over!")
     } else {
-        res.send(`${Number(numberOfBugs)} little bugs in the code <a href="/bugs/${Number(numberOfBugs) + 2}/">pull one down, patch it around</a>`)
+        res.send(`${Number(numberOfBugs)} little bugs in the code <a href="/bugs/${Number(numberOfBugs) + 2}/">Pull one down, patch it around</a>`)
     }
 })
 
 
-// // To get "Congratulations on starting a new project called jumping-joyous-jellybean!"
-// app.get("/:verb/:adjective/:noun", (req, res) => {
-//     const { verb, adjective, noun } = req.params
-//     res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
-// }), 
+// To get "Congratulations on starting a new project called jumping-joyous-jellybean!"
+app.get("/:verb/:adjective/:noun", (req, res) => {
+    const { verb, adjective, noun } = req.params
+    res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
+}), 
 
 
 
