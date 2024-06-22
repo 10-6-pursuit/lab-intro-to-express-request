@@ -1596,7 +1596,7 @@
     }
   },
   {
-    "name": "Oddish",
+    "name": "oddish",
     "img": "http://img.pokemondb.net/artwork/oddish.jpg",
     "type": ["Grass", "Poison"],
     "stats": {
