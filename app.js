@@ -3,9 +3,7 @@ const app=express()
 
 app.get(`/bugs` ,(req,res)=>{
  
-    res.send("99 little bugs in the code"
-        
-    )
+    res.send("99 little bugs in the code <a href='http://localhost:8888/bugs/101'>pull one down,patch it around</a>" )
 })
 app.get(`/bugs/:numberofbugs` ,(req,res)=>{
     let number=req.params.numberofbugs
