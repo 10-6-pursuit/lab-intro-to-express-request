@@ -7,8 +7,14 @@ app.get(`/bugs` ,(req,res)=>{
 })
 app.get(`/bugs/:numberofbugs` ,(req,res)=>{
     let number=req.params.numberofbugs
- 
-    res.send(`${number} little bugs in the code`)
+ if(number>198){
+    res.send( "<a href='http://localhost:8888/bugs'>start over</a")
+   
+    
+
+ }
+ else     res.send(`${number} little bugs in the code <a href='http://localhost:8888/bugs/${+number+2}'>pull one down,patch it around</a>`)
+
 })
 app.get(`/:verb/:adjective/:noun` ,(req,res)=>{
     let verb=req.params.verb
