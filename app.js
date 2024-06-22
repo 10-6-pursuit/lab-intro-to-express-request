@@ -1,5 +1,6 @@
 const express=require(`express`);
 const app=express()
+const pokemon = require("./models/pokemon.json");
 
 app.get(`/bugs` ,(req,res)=>{
  
@@ -21,6 +22,32 @@ app.get(`/:verb/:adjective/:noun` ,(req,res)=>{
     let adjective=req.params.adjective
     let noun=req.params.noun
     res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun||``}!`)
+})
+
+
+app.get(`/pokemon`,(req,res)=>{
+    res.send(pokemon)
+})
+app.get(`/pokemon/search`,(req,res)=>{
+    const {name}=req.query
+    
+    const findName=pokemon.find(el=>el.name===name)
+
+   
+    res.send(findName)
+  
+   
+})
+app.get(`/pokemon/:indexOfArray`,(req,res)=>{
+    const {indexOfArray}=req.params
+    if(pokemon[indexOfArray]){
+        res.send(pokemon[indexOfArray])
+    }
+    else{
+        res.status(404).send(`sorry, no pokemon found at /pokemon[${indexOfArray}]`)
+    }
+
+   
 })
 
 
