@@ -38,6 +38,14 @@ app.get('/pokemon', (req, res) => {
   res.send(pokemon)
 })
 
+// search
+app.get('/pokemon/search', (req, res) => {
+  const { name } = req.query
+  const pokemonResult = pokemon.find(poke => poke.name.toLowerCase() === name.toLowerCase())
+  console.log(pokemonResult)
+  res.send(pokemonResult)
+})
+
 // get pokemon
 app.get('/pokemon/:indexOfArray', (req, res) => {
   const index = req.params.indexOfArray
