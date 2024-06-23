@@ -33,7 +33,21 @@ app.get('/bugs/:numBugs', (req, res) => {
 
 // poke express
 
+// index
 app.get('/pokemon', (req, res) => {
   res.send(pokemon)
 })
+
+// get pokemon
+app.get('/pokemon/:indexOfArray', (req, res) => {
+  const index = req.params.indexOfArray
+  
+  if (!pokemon[index]) {
+    return res.send(`No pokemon found at /pokemon[${index}]`)
+  }
+  
+  return res.send(pokemon[index])
+})
+
+
 module.exports = app
