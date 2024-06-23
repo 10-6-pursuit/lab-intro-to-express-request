@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const pokemon = require('./models/pokemon.json')
 
 app.get("/", (req, res) => {
   res.send("Welcome")
@@ -29,4 +30,32 @@ app.get('/bugs/:numBugs', (req, res) => {
     <a href="/bugs">To many little bugs!! Start over.</a>`
   res.send(`${numBugs > 200 ? tooMany : pull}`)
 })
+
+// poke express
+
+// index
+app.get('/pokemon', (req, res) => {
+  res.send(pokemon)
+})
+
+// search
+app.get('/pokemon/search', (req, res) => {
+  const { name } = req.query
+  const pokemonResult = pokemon.find(poke => poke.name.toLowerCase() === name.toLowerCase())
+  console.log(pokemonResult)
+  res.send(pokemonResult)
+})
+
+// get pokemon
+app.get('/pokemon/:indexOfArray', (req, res) => {
+  const index = req.params.indexOfArray
+  
+  if (!pokemon[index]) {
+    return res.send(`No pokemon found at /pokemon[${index}]`)
+  }
+  
+  return res.send(pokemon[index])
+})
+
+
 module.exports = app
