@@ -27,14 +27,48 @@ app.get('/bugs/:numberOfBugs', (request, response) => {
         outputStr = `${bugsParam} little bugs in the code
         <a href="/bugs/${Number(bugsParam) + 2}">pull one down, patch it around</a>`;
     else if (bugsParam >= 200)
-        outputStr =`<a href="/bugs">Too many bugs!! Start over!</a>`;
+        outputStr = `<a href="/bugs">Too many bugs!! Start over!</a>`;
 
     response.send(outputStr);
 });
 
 //POKEMON
 const pokemon = require("./pokemon.json");
-console.log(pokemon[0]);
+const pokemonObj = pokemon.results;
+//console.log(pokemonObj);
+
+app.get('/pokemon', (request, response) => {
+    response.setHeader('Content-Type', 'application/json');
+    response.send(pokemon);
+});
+
+
+app.get('/pokemon/search', (request, response) => {
+    var searchPokemon = request.query.name;
+    var resultPokemon = {};
+    for (var i = 0; i < pokemonObj.length; i++) {
+        if (searchPokemon == pokemonObj[i].name)
+            break;
+    }
+    if (i < pokemonObj.length) {
+        resultPokemon = pokemonObj[i];
+    }
+    response.setHeader('Content-Type', 'application/json');
+    response.send(resultPokemon);
+});
+
+app.get('/pokemon/:indexOfArray', (request, response) => {
+    var indexRequest = request.params.indexOfArray;
+    var responseData;
+    if (indexRequest <= pokemonObj.length){
+        response.setHeader('Content-Type', 'application/json');
+        responseData = pokemonObj[indexRequest];
+    }
+    else
+        responseData = `sorry, no pokemon found at /pokemon[${indexRequest}]`;
+    
+    response.send(responseData);
+});
 
 
 
